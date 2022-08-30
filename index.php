@@ -103,11 +103,12 @@
             <p class="exercice-txt">Affichez dans une liste HTML le nom des produits de la question 2 qui sont présents dans la phrase : "<?=$text1?>"</p>
             <div class="exercice-sandbox">
                 <?php
-                $arc = substr($text1, 25, 3);
-                $fleche = substr($text1, 36, 8);
-                
-                echo "<li>$arc</li>";
-                echo "<li>$fleche</li>";
+
+                if ($arc = str_contains($text1, "arc")) echo "<li>arc</li>";
+                if ($fleche = str_contains($text1, "flèches")) echo "<li>flèches</li>";
+                if ($fleche = str_contains($text1, "potions")) echo "<li>potions</li>";
+             
+
                 ?>
             </div>
         </section>
@@ -130,7 +131,11 @@
                 $namePlayer5 = "Kevin";
                 $scorePlayer5 = 103;
 
-                echo "<p>Les joueurs suivants ont un score entre 50 et 150 points : $namePlayer2, $namePlayer4, $namePlayer5. </p>";
+                if (50 <= $scorePlayer1 && $scorePlayer1 <= 150) echo "<p>$namePlayer1 a un score compris entre 50 et 150.</p>";
+                if (50 <= $scorePlayer2 && $scorePlayer2 <= 150) echo "<p>$namePlayer2 a un score compris entre 50 et 150.</p>";
+                if (50 <= $scorePlayer3 && $scorePlayer3 <= 150) echo "<p>$namePlayer3 a un score compris entre 50 et 150.</p>";
+                if (50 <= $scorePlayer4 && $scorePlayer4 <= 150) echo "<p>$namePlayer4 a un score compris entre 50 et 150.</p>";
+                if (50 <= $scorePlayer5 && $scorePlayer5 <= 150) echo "<p>$namePlayer5 a un score compris entre 50 et 150.</p>";
 
                 ?>
             </div>
@@ -140,15 +145,16 @@
         <!-- QUESTION 7 -->
         <section class="exercice">
             <h2 class="exercice-ttl">Question 7</h2>
-            <p class="exercice-txt">En réutilisant les scores de la question pécédente, afficher le nom du joueur ayant obtenu le plus grand score.</p>
+            <p class="exercice-txt">En réutilisant les scores de la question précédente, afficher le nom du joueur ayant obtenu le plus grand score.</p>
             <div class="exercice-sandbox">
             <?php
-
                 $maxScore = max($scorePlayer1, $scorePlayer2, $scorePlayer3, $scorePlayer4, $scorePlayer5);
-                var_dump($maxScore);
-
+                if ($scorePlayer1 === $maxScore ) echo "Le/la meilleur/se joueur/se est $namePlayer1.";
+                if ($scorePlayer2 === $maxScore ) echo "Le/la meilleur/se joueur/se est $namePlayer2.";
+                if ($scorePlayer3 === $maxScore ) echo "Le/la meilleur/se joueur/se est $namePlayer3.";
+                if ($scorePlayer4 === $maxScore ) echo "Le/la meilleur/se joueur/se est $namePlayer4.";
+                if ($scorePlayer5 === $maxScore ) echo "Le/la meilleur/se joueur/se est $namePlayer5.";
             ?>
-
             </div>
         </section>
 
@@ -158,7 +164,29 @@
             <h2 class="exercice-ttl">Question 8</h2>
             <p class="exercice-txt">Affichez le prénom du joueur le plus long en nombre de caractères.</p>
             <div class="exercice-sandbox">
-                
+                <?php
+                    if (strlen($namePlayer1)>strlen($namePlayer2)) {
+                        $maxS = strlen($namePlayer1);
+                        $nameS = $namePlayer1;
+                    } else {
+                        $maxS = strlen($namePlayer2);
+                        $nameS = $namePlayer2;
+                    };
+                    if (strlen($namePlayer3)>$maxS) {
+                        $maxS = strlen($namePlayer3);
+                        $nameS = $namePlayer3;
+                    };
+                    if (strlen($namePlayer4)>$maxS) {
+                        $maxS = strlen($namePlayer4);
+                        $nameS = $namePlayer4;
+                    };
+                    if (strlen($namePlayer5)>$maxS) {
+                        $maxS = strlen($namePlayer5);
+                        $nameS = $namePlayer5;
+                    }
+                    echo "Le joueur avec le prénom le plus long est $nameS."
+                    
+                ?>
             </div>
         </section>
 
@@ -175,6 +203,17 @@
             </ul>
             <p class="exercice-txt">Afficher la valeur de cette variable avec tous les détails.</p>
             <div class="exercice-sandbox">
+                <?php
+                    $players = [
+                        ["Name" => "Tim",  "Score" => 67, "Age" => 25],
+                        ["Name" => "Morgan",  "Score" => 198, "Age" => 34],
+                        ["Name" => "Hamed",  "Score" => 21, "Age" => 27],
+                        ["Name" => "Camille",  "Score" => 134, "Age" => 47],
+                        ["Name" => "Kevin", "Score" => 103, "Age" => 31]     
+                    ];
+                    var_dump($players)
+                ?>
+            
                 
             </div>
         </section>
@@ -184,7 +223,28 @@
             <h2 class="exercice-ttl">Question 10</h2>
             <p class="exercice-txt">Afficher le prénom et l'âge du joueur le plus jeune dans une phrase dans une balise HTML P.</p>
             <div class="exercice-sandbox">
-
+                    <?php
+                        if ($players[0]["Age"]< $players[1]["Age"]) {
+                            $minA = $players[0]["Age"];
+                            $nameY = $players[0]["Name"];
+                        } else {
+                            $minA = $players[1]["Age"];
+                            $nameY = $players[1]["Name"];
+                        };
+                         if ($players[2]["Age"]<$minA) {
+                            $minA = $players[2]["Age"];
+                            $nameY = $players[2]["Name"];
+                        };
+                        if ($players[3]["Age"] < $minA) {
+                            $minA = $players[3]["Age"];
+                            $nameY = $players[3]["Name"];
+                        };
+                        if ($players[4]["Age"]<$minA) {
+                            $minA = $players[4]["Age"];
+                            $nameY = $players[4]["Name"];
+                        };
+                        echo "<p>Le joueur le plus jeune est âgé de $minA et c'est : $nameY.</p>"
+                    ?>
             </div>
         </section>
 
