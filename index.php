@@ -32,6 +32,7 @@
                 <?php
                     $firstname = "Samir";
                     $score = 327;
+                    echo "<p>${firstname} a obtenu ${score} points à cette partie.</p>";
                 ?>
             </div>
         </section>
@@ -49,6 +50,10 @@
                 $priceProduct2 = 2.90;
                 $nameProduct3 = "potion";
                 $priceProduct3 = 5.20;
+                
+                echo "<li>${nameProduct1} : ${priceProduct1}";
+                echo "<li>${nameProduct2} : ${priceProduct2}";
+                echo "<li>${nameProduct3} : ${priceProduct3}";
                 ?>
             </div>
         </section>
@@ -58,7 +63,20 @@
             <h2 class="exercice-ttl">Question 3</h2>
             <p class="exercice-txt">Calculer le montant total de la commande des produits ci-dessus avec les quantités ci-dessous et appliquez lui une remise de 10%.</p>
             <div class="exercice-sandbox">
+                <?php
+                    $quantityProduct1 = 1;
+                    $quantityProduct2 = 10;
+                    $quantityProduct3 = 4;
 
+                    $totalPrice1 = $priceProduct1*$quantityProduct1;
+                    $totalPrice2 = $priceProduct2*$quantityProduct2;
+                    $totalPrice3 = $priceProduct3*$quantityProduct3;
+
+                    $total = $totalPrice1 + $totalPrice2 + $totalPrice3;
+                    $reduc = $total * 0.9;
+
+                    echo "<p>Le montant total de la commande est de $total €, après la remise, il est de $reduc €.</p>";
+                ?>
             </div>
         </section>
 
@@ -68,7 +86,10 @@
             <h2 class="exercice-ttl">Question 4</h2>
             <p class="exercice-txt">Affichez le prix le plus élevé des 3 produits ci-dessus.</p>
             <div class="exercice-sandbox">
-
+                <?php
+                    $max = max($totalPrice1, $totalPrice2, $totalPrice3);
+                    echo "Le prix le plus élevé des 3 produits est $max €.</p>";
+                ?>
             </div>
         </section>
 
@@ -76,13 +97,18 @@
         <?php
 
         $text1 = "Le marchand m'a vendu un arc et des flèches.";
-
         ?>
         <section class="exercice">
             <h2 class="exercice-ttl">Question 5</h2>
             <p class="exercice-txt">Affichez dans une liste HTML le nom des produits de la question 2 qui sont présents dans la phrase : "<?=$text1?>"</p>
             <div class="exercice-sandbox">
-
+                <?php
+                $arc = substr($text1, 25, 3);
+                $fleche = substr($text1, 36, 8);
+                
+                echo "<li>$arc</li>";
+                echo "<li>$fleche</li>";
+                ?>
             </div>
         </section>
 
@@ -104,6 +130,8 @@
                 $namePlayer5 = "Kevin";
                 $scorePlayer5 = 103;
 
+                echo "<p>Les joueurs suivants ont un score entre 50 et 150 points : $namePlayer2, $namePlayer4, $namePlayer5. </p>";
+
                 ?>
             </div>
         </section>
@@ -114,7 +142,13 @@
             <h2 class="exercice-ttl">Question 7</h2>
             <p class="exercice-txt">En réutilisant les scores de la question pécédente, afficher le nom du joueur ayant obtenu le plus grand score.</p>
             <div class="exercice-sandbox">
-                
+            <?php
+
+                $maxScore = max($scorePlayer1, $scorePlayer2, $scorePlayer3, $scorePlayer4, $scorePlayer5);
+                var_dump($maxScore);
+
+            ?>
+
             </div>
         </section>
 
