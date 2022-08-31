@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="css/styles.css">
     <title>Introduction PHP - Exo 5</title>
 </head>
+
 <body class="dark-template">
     <div class="container">
         <header class="header">
@@ -23,18 +25,18 @@
             </nav>
         </header>
 
-<?php
+        <?php
 
-// Json file
-try {
-    $fileContent = file_get_contents("datas/series.json");
-    $series = json_decode($fileContent, true);
-} catch (Exception $e) {
-    echo "Something went wrong with json file...";
-    exit;
-}
+        // Json file
+        try {
+            $fileContent = file_get_contents("datas/series.json");
+            $series = json_decode($fileContent, true);
+        } catch (Exception $e) {
+            echo "Something went wrong with json file...";
+            exit;
+        }
 
-?>
+        ?>
 
         <section class="exercice">
             Sur cette page un fichier comportant les données de séries télé est importé côté serveur. (voir datas/series.json)
@@ -46,7 +48,7 @@ try {
             <h2 class="exercice-ttl">Question 1</h2>
             <p class="exercice-txt">Récupérer dans un tableau puis affichez l'ensemble des plateformes de diffusion des séries. Afficher les par ordre alphabétique.</p>
             <div class="exercice-sandbox">
-                
+
             </div>
         </section>
 
@@ -56,7 +58,7 @@ try {
             <h2 class="exercice-ttl">Question 2</h2>
             <p class="exercice-txt">Récupérer dans un tableau puis affichez l'ensemble des styles de séries. Afficher les par ordre alphabétique.</p>
             <div class="exercice-sandbox">
-                
+
             </div>
         </section>
 
@@ -74,15 +76,16 @@ try {
 
         <!-- QUESTION 5 -->
         <section id="question5" class="exercice">
-            <h2 class="exercice-ttl">Question 5</h2>
+            <h2 class="exercice-ttl">Question 4</h2>
             <p class="exercice-txt">Si l'URL de la page appelée comporte l'identifiant d'une série, alors afficher toutes les informations de la série.</p>
             <p class="exercice-txt">Si l'identifiant ne correspond à aucune série, afficher un message d'erreur.</p>
             <div class="exercice-sandbox">
-                
+
             </div>
         </section>
 
     </div>
-<div class="copyright">© Guillaume Belleuvre, 2022 - DWWM Le Havre</div>
+    <div class="copyright">© Guillaume Belleuvre, 2022 - DWWM Le Havre</div>
 </body>
+
 </html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="css/styles.css">
     <title>Introduction PHP - Exo 2</title>
 </head>
+
 <body class="dark-template">
     <div class="container">
         <header class="header">
@@ -23,18 +25,18 @@
             </nav>
         </header>
 
-<?php
+        <?php
 
-$fruits = ["fraise", "banane", "pomme", "cerise", "abricot", "pêche", "ananas", "kiwi"];
+        $fruits = ["fraise", "banane", "pomme", "cerise", "abricot", "pêche", "ananas", "kiwi"];
 
-?>
+        ?>
         <!-- QUESTION 1 -->
         <section class="exercice">
             <h2 class="exercice-ttl">Question 1</h2>
             <p class="exercice-txt">Afficher le détail de tout le tableau de fruits</p>
             <div class="exercice-sandbox">
                 <?php
-                    var_dump($fruits)
+                var_dump($fruits)
                 ?>
 
             </div>
@@ -47,9 +49,9 @@ $fruits = ["fraise", "banane", "pomme", "cerise", "abricot", "pêche", "ananas",
             <div class="exercice-sandbox">
                 <ul>
                     <?php
-                        foreach($fruits as $fruit) {
-                            echo "<li>$fruit</li>";
-                        };
+                    foreach ($fruits as $fruit) {
+                        echo "<li>$fruit</li>";
+                    };
                     ?>
                 </ul>
             </div>
@@ -60,14 +62,14 @@ $fruits = ["fraise", "banane", "pomme", "cerise", "abricot", "pêche", "ananas",
             <h2 class="exercice-ttl">Question 3</h2>
             <p class="exercice-txt">Afficher les fruits dans une liste HTML non ordonnée avec pour chacun d'eux sa position dans la liste</p>
             <div class="exercice-sandbox">
-            <ul>
+                <ul>
                     <?php
-                        foreach($fruits as $num =>  $fruit) {
-                            echo "<li>$num : $fruit</li>";
-                        };
+                    foreach ($fruits as $num =>  $fruit) {
+                        echo "<li>$num : $fruit</li>";
+                    };
                     ?>
-            </ul>
-                
+                </ul>
+
             </div>
         </section>
 
@@ -76,15 +78,14 @@ $fruits = ["fraise", "banane", "pomme", "cerise", "abricot", "pêche", "ananas",
             <h2 class="exercice-ttl">Question 4</h2>
             <p class="exercice-txt">Afficher 1 fruit sur 2 dans une liste HTML, en commençant par la fraise</p>
             <div class="exercice-sandbox">
-            <ul>
+                <ul>
                     <?php
-                        foreach($fruits as $num =>  $fruit) {
-                            if ($num%2 == 1 ) continue; 
-                            echo "<li>$num : $fruit</li>";
-                        };
+                    foreach ($fruits as $num =>  $fruit) {
+                        if ($num % 2 === 0) echo "<li>$num : $fruit</li>";
+                    };
                     ?>
-            </ul>
-                
+                </ul>
+
             </div>
         </section>
 
@@ -93,12 +94,7 @@ $fruits = ["fraise", "banane", "pomme", "cerise", "abricot", "pêche", "ananas",
             <h2 class="exercice-ttl">Question 5</h2>
             <p class="exercice-txt">Afficher un fruit aléatoire du tableau</p>
             <div class="exercice-sandbox">
-            <ul>
-                    <?php
-                        $random = array_rand($fruits, 1);
-                        echo "<li>$fruits[$random]</li>";
-                    ?>
-            </ul>
+                <?= $fruits[array_rand($fruits, 1)] ?>
             </div>
         </section>
 
@@ -107,14 +103,14 @@ $fruits = ["fraise", "banane", "pomme", "cerise", "abricot", "pêche", "ananas",
             <h2 class="exercice-ttl">Question 6</h2>
             <p class="exercice-txt">Afficher les fruits dans un ordre aléatoire</p>
             <div class="exercice-sandbox">
-            <ul>
+                <ul>
                     <?php
                     shuffle($fruits);
-                    foreach($fruits as $fruit) { 
+                    foreach ($fruits as $fruit) {
                         echo "<li>$fruit</li>";
                     };
                     ?>
-            </ul>
+                </ul>
             </div>
         </section>
 
@@ -123,14 +119,28 @@ $fruits = ["fraise", "banane", "pomme", "cerise", "abricot", "pêche", "ananas",
             <h2 class="exercice-ttl">Question 7</h2>
             <p class="exercice-txt">Afficher les fruits dont la chaîne de caractère est composée de 5 caractères au maximum</p>
             <div class="exercice-sandbox">
-            <ul>
+                <ul>
                     <?php
-                    foreach($fruits as $fruit) {
-                        trim($fruit);
-                        if(mb_strlen($fruit) <= 5) echo "<li>$fruit</li>";
-                    };
+                    // Méthode 1
+                    foreach ($fruits as $fruit) {
+                        if (mb_strlen($fruit) <= 5) echo "<li>$fruit</li>";
+                    }
+
+                    echo "</br>";
+
+                    // Méthode 2 
+                    foreach (array_filter($fruits, fn ($f) => mb_strlen($f) <= 5) as $fruit) {
+                        echo "<li>$fruit</li>";
+                    }
+
+                    echo "</br>";
+
+                    // Méthode 3
+                    $a = array_filter($fruits, fn ($f) => mb_strlen($f) <= 5);
+
+                    echo implode("", array_map(fn ($f) => "<li>$f</li>", $a));
                     ?>
-            </ul>
+                </ul>
             </div>
         </section>
 
@@ -140,16 +150,18 @@ $fruits = ["fraise", "banane", "pomme", "cerise", "abricot", "pêche", "ananas",
         ?>
         <section class="exercice">
             <h2 class="exercice-ttl">Question 8</h2>
-            <p class="exercice-txt">Dans la phrase suivante : "<?=$breakfast?>"</p>
+            <p class="exercice-txt">Dans la phrase suivante : "<?= $breakfast ?>"</p>
             <p class="exercice-txt">Remplacez pomme par pêche et banane par mangue et affichez-la.</p>
             <div class="exercice-sandbox">
 
-                    <?php
-                    $replaceFruits1 = array("pomme", "banane");
-                    $replaceFruits2 = array("pêche", "mangue");
-                        echo str_replace($replaceFruits1, $replaceFruits2, $breakfast);
-                    ?>
-                
+                <?php
+                $replacedFruit = array("pomme", "banane");
+                $replaceFruit = array("pêche", "mangue");
+                echo str_replace($replacedFruit, $replaceFruit, $breakfast);
+
+                echo str_replace(["pomme", "banane"], ["pêche", "mangue"], $breakfast);
+                ?>
+
             </div>
         </section>
 
@@ -159,9 +171,9 @@ $fruits = ["fraise", "banane", "pomme", "cerise", "abricot", "pêche", "ananas",
             <p class="exercice-txt">Affichez la chaîne de caractère composée de l'ensemble des fruits de la liste, séparés par une virgule et un espace.</p>
             <div class="exercice-sandbox">
                 <?php
-                    echo implode(", ", $fruits);
+                echo implode(", ", $fruits);
                 ?>
-                
+
             </div>
         </section>
 
@@ -169,22 +181,23 @@ $fruits = ["fraise", "banane", "pomme", "cerise", "abricot", "pêche", "ananas",
         <?php
 
         $salad = "Dans ma salade de fruit préférée, il y a de la banane, des pêches, quelques fraises, des noix et une cuillère de miel.";
-                
+
         ?>
         <section class="exercice">
             <h2 class="exercice-ttl">Question 10</h2>
-            <p class="exercice-txt">Afficher dans une liste HTML tous les fruits de la liste qui apparaissent dans la phrase suivante : "<?=$salad?>"</p>
+            <p class="exercice-txt">Afficher dans une liste HTML tous les fruits de la liste qui apparaissent dans la phrase suivante : "<?= $salad ?>"</p>
             <div class="exercice-sandbox">
-            <ul>
-                <?php
-                    foreach($fruits as $fruit) {
-                        if(str_contains($salad, $fruit)) echo "<li>$fruit</li>";
+                <ul>
+                    <?php
+                    foreach ($fruits as $fruit) {
+                        if (str_contains($salad, $fruit)) echo "<li>$fruit</li>";
                     };
-                ?>
-            </ul>
+                    ?>
+                </ul>
             </div>
         </section>
     </div>
-<div class="copyright">© Guillaume Belleuvre, 2022 - DWWM Le Havre</div>
+    <div class="copyright">© Guillaume Belleuvre, 2022 - DWWM Le Havre</div>
 </body>
+
 </html>
