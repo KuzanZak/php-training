@@ -39,7 +39,7 @@
             <p class="exercice-txt">Ordonner le tableau des prix par ordre croissant et l'afficher en détail</p>
             <div class="exercice-sandbox">
                 <?php
-                // sort($prices);
+                sort($prices);
                 var_dump($prices);
                 ?>
 
@@ -52,18 +52,9 @@
             <p class="exercice-txt">Ajouter 1 euro à chaque prix</p>
             <div class="exercice-sandbox">
                 <?php
-                $newPrices = [];
-                foreach ($prices as $price) {
-                    array_push($newPrices, $price + 1);
-                };
-                $prices = $newPrices;
+                $add = fn ($n) => ++$n;
+                $prices = array_map($add, $prices);
                 var_dump($prices);
-                // var_dump($newPrices);
-
-                // foreach ($prices as $num => $price) {
-                //     $price = $prices[$num] + 1;
-                // };
-                // var_dump($prices);
                 ?>
             </div>
         </section>
@@ -90,8 +81,10 @@
                     <?php
 
                     foreach ($store as $name => $price) {
-                        if ($price > 4) echo "<li>$name</li>";
+                        if ($price < 4) echo "<li>$name</li>";
                     }
+
+                    var_dump(array_filter($store, fn ($p) => $p < 4));
 
                     ?>
                 </ul>
@@ -105,9 +98,16 @@
             <div class="exercice-sandbox">
                 <ul>
                     <?php
+                    // Méthode + directe
+                    foreach ($store as $name => $price) {
+                        if ($price % 2 === 0) echo "<li>$name</li>";
+                    }
+
+                    echo "</br>";
 
                     foreach ($store as $name => $price) {
-                        if ($price % 2 !== 1) echo "<li>$name</li>";
+                        if ($price % 2 !== 0) continue;
+                        echo "<li>$name</li>";
                     }
 
                     ?>
@@ -123,16 +123,26 @@
                 <?php
                 // Ajouter l'option aléatoire 
                 // var_dump($store);
+                // shuffle($store);
+                // foreach ($store as $name => $price) {
+                //     if ($total <= 12 && $price <= (12 - $total) && str_contains($fruitsPanier, $name == false)) {
+                //         $total += $price;
+                //         $fruitsPanier .= "$name, ";
+                //     };
+                // };
                 $total = 0;
                 $fruitsPanier = "";
-                // shuffle($store);
                 foreach ($store as $name => $price) {
-                    if ($total <= 12 && $price <= (12 - $total) && str_contains($fruitsPanier, $name == false)) {
+                    if ($total + $price <= 12) {
                         $total += $price;
                         $fruitsPanier .= "$name, ";
-                    };
-                };
+                    }
+                    if ($total >= 12) break;
+                }
                 echo "Le panier est composé de : $fruitsPanier et le prix total est de $total.";
+
+
+
                 ?>
 
             </div>
@@ -144,7 +154,7 @@
             <p class="exercice-txt">En reprenant le prix total du panier constitué à la question précédente, appliquez-lui une taxe de 18%. Afficher le total taxe comprise.</p>
             <div class="exercice-sandbox">
                 <?php
-                echo $total * 0.82;
+                echo $total * 1.18;
                 ?>
 
             </div>
@@ -176,17 +186,9 @@
             <p class="exercice-txt">Ajouter les nouveaux fruits du tableau $newFruits au tableau $store</p>
             <div class="exercice-sandbox">
                 <?php
-                // Refaire cette question
-                $store["pêche"] = 3;
-                $store["abricot"] = 2;
-                $store["mangue"] = 9;
+                // Refaire cette questions
+                $store = array_merge($store, $newFruits);
                 var_dump($store);
-
-                // $store[array_keys($newFruits["pêche"])] = 3;
-                // var_dump($store);
-                // var_dump($newFruits);
-                // echo $newFruits["pêche"];
-
                 ?>
 
             </div>
