@@ -50,12 +50,12 @@
             <div class="exercice-sandbox">
                 <?php
                 // var_dump($series);
-                $table = [];
+                $plateform = [];
                 foreach ($series as $serie) {
-                    if (!in_array($serie["availableOn"], $table)) array_push($table, $serie["availableOn"]);
+                    if (!in_array($serie["availableOn"], $plateform)) array_push($plateform, $serie["availableOn"]);
                 }
-                sort($table);
-                var_dump($table);
+                sort($plateform);
+                var_dump($plateform);
                 ?>
             </div>
         </section>
@@ -66,7 +66,17 @@
             <h2 class="exercice-ttl">Question 2</h2>
             <p class="exercice-txt">Récupérer dans un tableau puis affichez l'ensemble des styles de séries. Afficher les par ordre alphabétique.</p>
             <div class="exercice-sandbox">
-
+                <?php
+                // var_dump($series);
+                $styles = [];
+                foreach ($series as $serie) {
+                    foreach ($serie["styles"] as $style) {
+                        if (!in_array($style, $styles)) array_push($styles, $style);
+                    }
+                }
+                sort($styles);
+                var_dump($styles);
+                ?>
             </div>
         </section>
 
