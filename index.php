@@ -84,7 +84,6 @@
             </div>
         </section>
 
-
         <!-- QUESTION 4 -->
         <section class="exercice">
             <h2 class="exercice-ttl">Question 4</h2>
@@ -150,11 +149,39 @@
             <div class="exercice-sandbox">
                 <?php
                 $maxScore = max($scorePlayer1, $scorePlayer2, $scorePlayer3, $scorePlayer4, $scorePlayer5);
-                if ($scorePlayer1 === $maxScore) echo "Le/la meilleur/se joueur/se est $namePlayer1.";
-                if ($scorePlayer2 === $maxScore) echo "Le/la meilleur/se joueur/se est $namePlayer2.";
-                if ($scorePlayer3 === $maxScore) echo "Le/la meilleur/se joueur/se est $namePlayer3.";
-                if ($scorePlayer4 === $maxScore) echo "Le/la meilleur/se joueur/se est $namePlayer4.";
-                if ($scorePlayer5 === $maxScore) echo "Le/la meilleur/se joueur/se est $namePlayer5.";
+                if ($scorePlayer1 === $maxScore) echo "<p>Le/la meilleur/se joueur/se est $namePlayer1.</p>";
+                if ($scorePlayer2 === $maxScore) echo "<p>Le/la meilleur/se joueur/se est $namePlayer2.</p>";
+                if ($scorePlayer3 === $maxScore) echo "<p>Le/la meilleur/se joueur/se est $namePlayer3.</p>";
+                if ($scorePlayer4 === $maxScore) echo "<p>Le/la meilleur/se joueur/se est $namePlayer4.</p>";
+                if ($scorePlayer5 === $maxScore) echo "<p>Le/la meilleur/se joueur/se est $namePlayer5.</p>";
+
+                // $scores = [
+                //     $namePlayer1 => $scorePlayer1,
+                //     $namePlayer2 => $scorePlayer2,
+                //     $namePlayer3 => $scorePlayer3,
+                //     $namePlayer4 => $scorePlayer4,
+                //     $namePlayer5 => $scorePlayer5
+                // ];
+                // var_dump($scores);
+
+                // foreach ($scores as $namePlayer => $scorePlayer) {
+                //     if (!isset($maxScore2) || $scorePlayer > $maxScore2) {
+                //         $maxScore2 = $scorePlayer;
+                //         $topPlayer = $namePlayer;
+                //     };
+                // };
+                // echo "<p>Le/la meilleur/se joueur/se est $namePlayer.</p>";
+
+                // $maxScore3 = max($scores);
+                // echo $maxScore3;
+                // foreach ($scores as $namePlayer => $scorePlayer) {
+                //     if ($scorePlayer === $maxScore3) {
+                //         $topPlayer = $namePlayer;
+                //     };
+                // };
+                // echo "<p>Le/la meilleur/se joueur/se est $namePlayer.</p>";
+                // Vérifier avec les boucles, car j'obtiens Kevin alors qu'il faut Morgan.
+
                 ?>
             </div>
         </section>
@@ -172,20 +199,20 @@
                 } else {
                     $maxS = strlen($namePlayer2);
                     $nameS = $namePlayer2;
-                };
+                }
                 if (strlen($namePlayer3) > $maxS) {
                     $maxS = strlen($namePlayer3);
                     $nameS = $namePlayer3;
-                };
+                }
                 if (strlen($namePlayer4) > $maxS) {
                     $maxS = strlen($namePlayer4);
                     $nameS = $namePlayer4;
-                };
+                }
                 if (strlen($namePlayer5) > $maxS) {
                     $maxS = strlen($namePlayer5);
                     $nameS = $namePlayer5;
                 }
-                echo "Le joueur avec le prénom le plus long est $nameS."
+                echo "<p>Le joueur avec le prénom le plus long est $nameS.</p>"
 
                 ?>
             </div>
@@ -212,7 +239,7 @@
                     ["Name" => "Camille",  "Score" => 134, "Age" => 47],
                     ["Name" => "Kevin", "Score" => 103, "Age" => 31]
                 ];
-                var_dump($players)
+                var_dump($players);
                 ?>
 
 
@@ -231,19 +258,19 @@
                 } else {
                     $minA = $players[1]["Age"];
                     $nameY = $players[1]["Name"];
-                };
+                }
                 if ($players[2]["Age"] < $minA) {
                     $minA = $players[2]["Age"];
                     $nameY = $players[2]["Name"];
-                };
+                }
                 if ($players[3]["Age"] < $minA) {
                     $minA = $players[3]["Age"];
                     $nameY = $players[3]["Name"];
-                };
+                }
                 if ($players[4]["Age"] < $minA) {
                     $minA = $players[4]["Age"];
                     $nameY = $players[4]["Name"];
-                };
+                }
                 echo "<p>Le joueur le plus jeune est âgé de $minA et c'est : $nameY.</p>"
                 ?>
             </div>
