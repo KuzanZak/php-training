@@ -219,20 +219,24 @@
             <p class="exercice-txt">Afficher les noms et le prix des fruits les plus chers</p>
             <div class="exercice-sandbox">
                 <?php
-                // foreach ($store as $name => $price) {
-                //     if (!isset($maxP) || $price > $maxP) {
-                //         $maxP = $price;
-                //         $expensiveP .= $name;
-                //     };
-                // }
-                // echo "Le produit les plus cher sont $expensiveP ($maxP €).";
+                foreach ($store as $name => $price) {
+                    if (!isset($maxP) || $price > $maxP) {
+                        $maxP = $price;
+                        $expensivePr = [$name];
+                    } else if ($price === $maxP) {
+                        $expensivePr[] = $name;
+                    }
+                }
+                echo implode(", ", $expensivePr) . " : $maxP";
+
+                echo "</br>";
 
                 $maxP = max($store);
                 $expensiveP = "";
                 foreach ($store as $name => $price) {
                     if ($price === $maxP) {
                         $expensiveP .= "$name, ";
-                    };
+                    }
                 }
                 echo "Le produit les plus cher sont $expensiveP ($maxP €).";
                 ?>
