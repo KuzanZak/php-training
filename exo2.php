@@ -192,6 +192,9 @@
                     foreach ($fruits as $fruit) {
                         if (str_contains($salad, $fruit)) echo "<li>$fruit</li>";
                     };
+
+                    echo implode("", array_filter($fruits, fn ($f) => str_contains($salad, $f)));
+
                     ?>
                 </ul>
             </div>
