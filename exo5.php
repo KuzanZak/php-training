@@ -87,7 +87,30 @@
             <p class="exercice-txt">L'image et le titre de la série sont des liens menant à cette page avec en paramètre "serie", l'identifiant de la série</p>
             <p class="exercice-txt">Afficher une seule série par ligne sur les plus petits écrans, 2 séries par ligne sur les écrans intermédiaires et 4 séries par ligne sur un écran d'ordinateur.</p>
             <div class="exercice-sandbox">
+                <ul>
+                    <?php
+                    function display(array $array): string
+                    {
+                        $list = "";
+                        foreach ($array as $key) {
+                            if (!is_null($key)) $list .= "<li>$key</li>";
+                        }
+                        return $list;
+                    }
 
+                    // var_dump($series);
+                    // var_dump($series[0]);
+                    // var_dump($series[0]["image"], $series[0]["name"], $series[0]["createdBy"][0], $series[0]["createdBy"][1], $series[0]["actors"][0], $series[0]["actors"][1], $series[0]["actors"][2]);
+                    // echo "<li class = " . "list" . "><h3 class = " . "title" . ">" . $series[0]["name"] . "</h3><img class = " . "img" . " src =" . $series[0]["image"] . "><p class = " . "created" . ">Créé par : " . $series[0]["createdBy"][0] . ", " . $series[0]["createdBy"][1] . "</p><p class = " . "casting" . ">Casting : " . $series[0]["actors"][0] . ", " . $series[0]["actors"][1] . ", " . $series[0]["actors"][2] . "</p></li>";
+                    // echo "<li class = " . "list" . "><h3 class = " . "title" . ">" . $series[0]["name"] . "</h3><img class = " . "img" . " src =" . $series[0]["image"] . "><ul class = " . "created" . "><span class = " . "spanT" . ">Créé par : </span> <li> " . $series[0]["createdBy"][0] . "</li><li> " . $series[0]["createdBy"][1] . "</li></ul><ul class = " . "casting" . "><span class = " . "spanT" . ">Casting : </span> <li>" . $series[0]["actors"][0] . "</li><li> " . $series[0]["actors"][1] . "</li><li>" . $series[0]["actors"][2] . "</li></ul></li>";
+                    foreach ($series as $serie) {
+                        // echo "<li class =" . "list" . "><h3 class = " . "title" . ">" . $serie["name"] . "</h3><img class = " . "img" . " src =" . $serie["image"] . "><ul class = " . "created" . "><span class = " . "spanT" . ">Créé par : </span> <li>$creators</li></ul></li>";
+                        $actors = display($serie["actors"]);
+                        $creators = display($serie["createdBy"]);
+                        echo "<li class =" . "list" . "><h3 class = " . "title" . ">" . $serie["name"] . "</h3><img class = " . "img" . " src =" . $serie["image"] . "><ul class = " . "created" . "><span class = " . "spanT" . ">Créé par : </span>$creators</ul><ul class = " . "casting" . "><span class = " . "spanT" . ">Casting: </span>$actors</ul></li>";
+                    }
+                    ?>
+                </ul>
             </div>
         </section>
 

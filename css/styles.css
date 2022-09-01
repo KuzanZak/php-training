@@ -1,0 +1,33 @@
+.list{
+    display: grid;
+    grid-template-columns: 18% 28% 27% 27%;
+    margin-bottom: 1rem;
+}
+
+.title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: .9rem;
+    word-break: break-all;
+}
+
+.img{
+    width: 75%;
+    border-radius: 15%;
+    margin: auto .5rem;
+
+}
+
+.spanT{
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.created, .casting, .title{
+    text-align: center;
+}
+
+.created, .casting{
+    font-size: .6rem;
+}
