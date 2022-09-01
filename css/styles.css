@@ -16,7 +16,6 @@
     width: 75%;
     border-radius: 15%;
     margin: auto .5rem;
-
 }
 
 .spanT{
@@ -30,4 +29,72 @@
 
 .created, .casting{
     font-size: .6rem;
+}
+
+
+@media screen and (min-width : 550px ) and (max-width : 900px){
+    .list-principal{
+        display: grid;
+        grid-template-columns: 50% 50%;
+        list-style: none;
+    }
+    .list{
+        display: inline;
+    }
+    .title{
+        margin-bottom: .5rem;
+    }
+    .list-s{
+        list-style: none;
+        margin-bottom: .1rem;
+    }
+    .list-s ::after {
+        content: ", ";
+    }
+    .img{
+        width: 60%;
+        border-radius: 15%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: .5rem;
+    }
+    .created, .casting{
+        font-size: .8rem;
+        margin-bottom: .5rem;
+    }
+    
+}
+
+@media screen and ( min-width : 901px ) {
+    .list-principal{
+        display: grid;
+        grid-template-columns: 25% 25% 25% 25%;
+        list-style: none;
+    }
+    .list{
+        display: inline;
+    }
+    .title{
+        margin-bottom: .5rem;
+    }
+    .list-s{
+        list-style: none;
+        margin-bottom: .1rem;
+    }
+    .list-s ::after {
+        content: ", ";
+    }
+    .img{
+        width: 60%;
+        border-radius: 15%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: .5rem;
+    }
+    .created, .casting{
+        font-size: .8rem;
+        margin-bottom: .5rem;
+    }
 }

@@ -7,4 +7,3 @@ function display(array $array): string
     }
     return $list;
 }
-echo display($array);
