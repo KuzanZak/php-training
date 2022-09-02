@@ -38,19 +38,32 @@
             <h2 class="exercice-ttl">Question 1</h2>
             <p class="exercice-txt">Déclarer une fonction qui prend en paramètre un tableau et retourne la chaîne de caractère HTML permettant d'afficher les valeurs du tableau sous la forme d'une liste.</p>
             <div class="exercice-sandbox">
-                <ul>
-                    <?php
-                    function display(array $array): string
-                    {
-                        $list = "";
-                        foreach ($array as $key) {
-                            $list .= "<li>$key</li>";
-                        }
-                        return $list;
+                <?php
+                /**
+                 * Gives the HTML list from the given array.
+                 *
+                 * @param array $array
+                 * @return string
+                 */
+                function getHtmlFromArray(array $array): string
+                {
+                    $list = "";
+                    foreach ($array as $value) {
+                        $list .= "<li>$value</li>";
                     }
-                    echo display($array);
-                    ?>
-                </ul>
+                    return "<ul>$list</ul>";
+                }
+                echo getHtmlFromArray($array);
+
+                function getHtmlFromArray1(array $array): string
+                {
+                    // return "<ul><li>" . implode("</li><li> ", $array) . "</li></ul>";
+                    $valueToLi = fn ($v) => "<li>$v</li>";
+                    return "<ul>" . implode("", array_map($valueToLi, $array)) . "</ul>";
+                }
+                echo getHtmlFromArray1($array);
+                ?>
+
             </div>
         </section>
 
@@ -61,17 +74,28 @@
             <div class="exercice-sandbox">
                 <ul>
                     <?php
-                    function displayE(array $array): string
+                    /**
+                     * Filters the even numbers of the given array.
+                     *
+                     * @param array $array The array to filter.
+                     * @return array Filtered array. 
+                     */
+                    function getEvenNumbersFromArray(array $array): array
                     {
-                        $list = "";
-                        foreach ($array as $key) {
-                            if (is_int($key) == true && $key % 2 !== 1) {
-                                $list .= "<li>$key</li>";
+                        $a = [];
+                        foreach ($array as $number) {
+                            if ($number % 2 === 0) {
+                                $a[] = $number;
                             }
                         }
-                        return $list;
+                        return $a;
                     }
-                    echo displayE($arrayB);
+
+                    // function getEvenNumbersFromArray1(array $array): array
+                    // {
+                    //     return array_filter($array, fn ($v) => $v % 2 === 0);
+                    // }
+                    echo getHtmlFromArray1(getEvenNumbersFromArray($array));
                     ?>
                 </ul>
             </div>
@@ -84,17 +108,30 @@
             <div class="exercice-sandbox">
                 <ul>
                     <?php
-                    function displayI(array $array): string
+                    /**
+                     * Get values having even index from the array.
+                     *
+                     * @param array $array
+                     * @return array 
+                     */
+                    function getEvenIndex(array $array): array
                     {
-                        $list = "";
-                        foreach ($array as $num => $key) {
-                            if ($num % 2 === 0) {
-                                $list .= "<li>$num : $key</li>";
+
+                        $b = [];
+                        foreach ($array as $index => $value) {
+                            if ($index % 2 === 0) {
+                                $b[] = $value;
                             }
                         }
-                        return $list;
+                        return $b;
                     }
-                    echo displayI($array);
+                    // echo getHtmlFromArray1(getEvenIndex($array));
+
+                    function getEvenIndexFromArray(array $array): array
+                    {
+                        return array_filter($array, fn ($k) =>  $k % 2 === 0, ARRAY_FILTER_USE_KEY);
+                    }
+                    echo getHtmlFromArray1(getEvenIndexFromArray($array));
                     ?>
                 </ul>
 
@@ -107,15 +144,23 @@
             <p class="exercice-txt">Déclarer une fonction qui prend en paramètre un tableau d'entiers. La fonction doit retourner les valeurs du tableau mulipliées par 2.</p>
             <div class="exercice-sandbox">
                 <?php
-                function displayT(array $array): array
+                /**
+                 * Filters numeric values of the given array and multiplies by 2.
+                 *
+                 * @param array $array
+                 * @return array
+                 */
+                function getValuesMultiplyBy2(array $array): array
                 {
-                    $table = [];
-                    foreach ($array as $key) {
-                        if (is_int($key) == true) array_push($table, $key * 2);
-                    }
-                    return $table;
+                    // $table = [];
+                    // foreach ($array as $value) {
+                    //     if (is_numeric($value)) $table[] = $value * 2;
+                    // }
+                    // return $table;
+
+                    return array_map(fn ($v) => $v * 2, array_filter($array, "is_numeric"));
                 }
-                var_dump(displayT($arrayB));
+                var_dump(getValuesMultiplyBy2($arrayA));
                 ?>
 
             </div>
@@ -127,13 +172,21 @@
             <p class="exercice-txt">Déclarer une fonction qui prend en paramètre un tableau d'entiers et un entier. La fonction doit retourner les valeurs du tableau divisées par le second paramètre</p>
             <div class="exercice-sandbox">
                 <?php
-                function displayT2(array $array, int $int): array
+                /**
+                 * Filters numeric values of the given array and divided by the second parameter. 
+                 *
+                 * @param array $array The list of values to be divided. 
+                 * @param integer $div The divider.
+                 * @return array
+                 */
+                function displayT2(array $array, int $div): array
                 {
-                    $table = [];
-                    foreach ($array as $key) {
-                        if (is_int($key) == true) array_push($table, $key / $int);
-                    }
-                    return $table;
+                    // $table = [];
+                    // foreach ($array as $value) {
+                    //     if (is_numeric($value)) $table[] = $value / $int;
+                    // }
+                    // return $table;
+                    return array_map(fn ($v) => $v / $div, array_filter($array, "is_numeric"));
                 }
                 var_dump(displayT2($arrayB, 2));
                 ?>
@@ -146,15 +199,22 @@
             <p class="exercice-txt">Déclarer une fonction qui prend en paramètre un tableau d'entiers ou de chaînes de caractères et retourne le tableau sans doublons</p>
             <div class="exercice-sandbox">
                 <?php
-                function displayTs(array $array): array
+                /**
+                 * Removes duplicate values of the array. 
+                 *
+                 * @param array $array
+                 * @return array
+                 */
+                function cleanArrayFromDuplicata(array $array): array
                 {
                     $table = [];
-                    foreach ($array as $key) {
-                        if (!in_array($key, $table)) array_push($table, $key);
+                    foreach ($array as $key => $value) {
+                        if (!in_array($value, $table)) $table[$key] = $value;
                     }
                     return $table;
+                    // return array_unique($array);
                 }
-                var_dump(displayTs($arrayA));
+                var_dump(cleanArrayFromDuplicata($arrayA));
                 ?>
 
             </div>
@@ -166,11 +226,23 @@
             <p class="exercice-txt">Déclarer une fonction qui prend en paramètre 2 tableaux et retourne un tableau représentant l'intersection des 2</p>
             <div class="exercice-sandbox">
                 <?php
+
+                /**
+                 * Return the intersection of 2 arrays. 
+                 *
+                 * @param array $array1
+                 * @param array $array2
+                 * @return array
+                 */
                 function displayT3(array $array1, array $array2): array
                 {
-                    $table = [];
-                    $table = array_intersect($array1, $array2);
-                    return $table;
+                    // $a = [];
+                    // foreach ($array1 as $key => $value) {
+                    //     if (in_array($value, $array2)) $a[$key] = $value;
+                    // }
+                    // return $a;
+                    // return array_intersect($array1, $array2);
+                    return array_filter($array1, fn ($v) => in_array($v, $array2));
                 }
                 var_dump(displayT3($arrayA, $arrayB));
                 ?>
@@ -184,17 +256,34 @@
             <p class="exercice-txt">Déclarer une fonction qui prend en paramètre 2 tableaux et retourne un tableau des valeurs du premier tableau qui ne sont pas dans le second</p>
             <div class="exercice-sandbox">
                 <?php
-                function displayT4(array $array1, array $array2): array
+                /**
+                 * Return the values from the first array, that are not in the second one. 
+                 *
+                 * @param array $array1
+                 * @param array $array2
+                 * @return array
+                 */
+                function getArraydifference(array $array1, array $array2): array
                 {
-                    $table = [];
-                    $table = array_diff($array1, $array2);
+                    // return array_diff($array1, $array2);
+                    $output = [];
 
-                    return $table;
+                    foreach ($array1 as $key => $value) {
+                        if (!in_array($value, $array2)) $output[$key] = $value;
+                    }
+                    return $output;
+                    // return array_filter($array1, fn ($v) => !in_array($v, $array2));
                 }
-                var_dump(displayT4($arrayA, $arrayB));
+                var_dump(getArraydifference($arrayA, $arrayB));
 
 
-                // Permet d'afficher les différences des deux tableaux.
+                /**
+                 * Return different values between 2 arrays. 
+                 *
+                 * @param array $array1
+                 * @param array $array2
+                 * @return array
+                 */
                 function displayT4Bis(array $array1, array $array2): array
                 {
                     $table = [];
@@ -218,16 +307,28 @@
             <p class="exercice-txt">Réécrire la fonction précédente pour lui ajouter un paramètre booléen facultatif. Si celui-ci est à true, le tableau retourné sera sans doublons</p>
             <div class="exercice-sandbox">
                 <?php
-                function displayT4Bis1(array $array1, array $array2, bool $factor = true): array
+                /**
+                 * Return the values from the first array, that are not in the second one and without duplicate.
+                 *
+                 * @param array $array1
+                 * @param array $array2
+                 * @param boolean $unique Remove the duplicate from output.
+                 * @return array
+                 */
+                function getArraydifferenceWithoutDuplicate(array $array1, array $array2, bool $unique = false): array
                 {
-                    $table = [];
-                    $table = array_diff($array1, $array2);
+                    // return array_diff($array1, $array2);
+                    $output = [];
+                    foreach ($array1 as $key => $value) {
+                        if (!in_array($value, $array2)) $output[$key] = $value;
+                    }
 
-                    if ($factor) $table = array_unique($table);
+                    if ($unique) return cleanArrayFromDuplicata($output);
 
-                    return $table;
+                    return $output;
+                    // return array_filter($array1, fn ($v) => !in_array($v, $array2));
                 }
-                var_dump(displayT4Bis1($array, $arrayB));
+                var_dump(getArraydifferenceWithoutDuplicate($arrayA, $arrayB, true));
                 ?>
 
             </div>
@@ -240,15 +341,32 @@
             <p class="exercice-txt">Déclarer une fonction qui prend en paramètre un tableau et un entier et retourne les n premiers éléments du tableau.</p>
             <div class="exercice-sandbox">
                 <?php
-                function nFirst(array $array, int $int): array
+                /**
+                 * Returns N values from the array.
+                 *
+                 * @param array $array The list of values
+                 * @param integer $int The number of values that we want
+                 * @return array
+                 */
+                function getNValuesFromArray(array $array, int $n): array
                 {
-                    $table = [];
-                    foreach ($array as $key) {
-                        if (sizeof($table) < $int) array_push($table, $key);
+                    $output = [];
+                    foreach ($array as $key => $value) {
+                        if (sizeof($output) < $n) $output[$key] = $value;
+                        else break;
                     }
-                    return $table;
+                    return $output;
+
+                    // $output = [];
+                    // while (sizeof($output) < $n) {
+                    //     if (sizeof($array) === 0) break;
+                    //     $output[] = array_shift($array);
+                    // }
+                    // return $output;
+
+                    // return array_slice($array, 0, $n);
                 }
-                var_dump(nFirst($array, 7));
+                var_dump(getNValuesFromArray($array, 4));
                 ?>
 
             </div>

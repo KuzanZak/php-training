@@ -7,6 +7,8 @@
 .title{
     display: flex;
     justify-content: center;
+    color: black;
+    font-weight: bold;
     align-items: center;
     font-size: .9rem;
     word-break: break-all;
@@ -77,6 +79,7 @@
     }
     .title{
         margin-bottom: .5rem;
+        font-size: 1.3rem;
     }
     .list-s{
         list-style: none;

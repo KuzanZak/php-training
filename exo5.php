@@ -105,7 +105,12 @@
                     foreach ($series as $serie) {
                         $actors = display($serie["actors"]);
                         $creators = display($serie["createdBy"]);
-                        echo "<li class =" . "list" . "><h3 class = " . "title" . ">" . $serie["name"] . "</h3><img class = " . "img" . " src =" . $serie["image"] . "><ul class = " . "created" . "><span class = " . "spanT" . ">Créé par : </span>$creators</ul><ul class = " . "casting" . "><span class = " . "spanT" . ">Casting: </span>$actors</ul></li>";
+                        // echo "<li class =" . "list" . "><h3 class = " . "title" . ">" . $serie["name"] . "</h3><img class = " . "img" . " src =" . $serie["image"] . "><ul class = " . "created" . "><span class = " . "spanT" . ">Créé par : </span>$creators</ul><ul class = " . "casting" . "><span class = " . "spanT" . ">Casting: </span>$actors</ul></li>";
+                        echo "<li class =\"list\">
+                        <a href= \"exo5.php?serie=" . $serie['id'] . "\" class = \"title\" target= \"blank\">" . $serie["name"] . "</a>
+                        <a href=\"exo5.php?serie=" . $serie['id'] . "\" target= \"blank\"><img class = \"img\" src = \"" . $serie['image'] . "\"></a>
+                        <ul class = \"created\"><span class =\"spanT\">Créé par : </span>$creators</ul>
+                        <ul class =\"casting\"><span class =\"span\">Casting: </span>$actors</ul></li>";
                     }
                     ?>
                 </ul>
@@ -113,13 +118,15 @@
         </section>
 
 
-        <!-- QUESTION 5 -->
+        <!-- QUESTION 4 -->
         <section id="question5" class="exercice">
             <h2 class="exercice-ttl">Question 4</h2>
             <p class="exercice-txt">Si l'URL de la page appelée comporte l'identifiant d'une série, alors afficher toutes les informations de la série.</p>
             <p class="exercice-txt">Si l'identifiant ne correspond à aucune série, afficher un message d'erreur.</p>
             <div class="exercice-sandbox">
-
+                <?php
+                var_dump($_GET);
+                ?>
             </div>
         </section>
 
