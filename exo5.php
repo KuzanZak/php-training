@@ -107,10 +107,10 @@
                         $creators = display($serie["createdBy"]);
                         // echo "<li class =" . "list" . "><h3 class = " . "title" . ">" . $serie["name"] . "</h3><img class = " . "img" . " src =" . $serie["image"] . "><ul class = " . "created" . "><span class = " . "spanT" . ">Créé par : </span>$creators</ul><ul class = " . "casting" . "><span class = " . "spanT" . ">Casting: </span>$actors</ul></li>";
                         echo "<li class =\"list\">
-                        <a href= \"exo5.php?serie=" . $serie['id'] . "\" class = \"title\" target= \"blank\">" . $serie["name"] . "</a>
-                        <a href=\"exo5.php?serie=" . $serie['id'] . "\" target= \"blank\"><img class = \"img\" src = \"" . $serie['image'] . "\"></a>
+                        <a href= \"exo5.php?serie=" . $serie['id'] . "\" class = \"title\">" . $serie["name"] . "</a>
+                        <a href=\"exo5.php?serie=" . $serie['id'] . "\"><img class = \"img\" src = \"" . $serie['image'] . "\"></a>
                         <ul class = \"created\"><span class =\"spanT\">Créé par : </span>$creators</ul>
-                        <ul class =\"casting\"><span class =\"span\">Casting: </span>$actors</ul></li>";
+                        <ul class =\"casting\"><span class =\"spanT\">Casting: </span>$actors</ul></li>";
                     }
                     ?>
                 </ul>
@@ -125,8 +125,47 @@
             <p class="exercice-txt">Si l'identifiant ne correspond à aucune série, afficher un message d'erreur.</p>
             <div class="exercice-sandbox">
                 <?php
-                var_dump($_GET);
+                foreach ($series as $serie) {
+                    if ($_GET["serie"] == $serie["id"]) {
+                        $actors = implode(", ", $serie["actors"]);
+                        $creators = implode(", ", $serie["createdBy"]);
+
+                        echo "<p>Id : " . $serie["id"] . "</p>
+                        <p>Name : " . $serie["name"] . "</p>
+                        <p>Year : " . $serie["launchYear"] . "</p>
+                        <p>Country : " . $serie["country"] . "</p>
+                        <p>Available on : " . $serie["availableOn"] . "</p>
+                        <p>Duration of episode : " . $serie["episodeDurationInMinutes"] . "</p>
+                        <p>Number of seasons : " . $serie["numberOfSeasons"] . "</p>
+                        <p>Number of episods : " . $serie["numberOfEpisods"] . "</p>
+                        <p>Ongoing : " . $serie["ongoing"] . "</p>
+                        <p>URL image : " . $serie["image"] . "</p>
+                        <ul><span>Créé par : </span>$creators</ul>
+                        <ul><span>Casting: </span>$actors</ul></li>";
+                    };
+                }
                 ?>
+            </div>
+        </section>
+
+
+        <!-- QUESTION 5 -->
+        <section id="question5" class="exercice">
+            <h2 class="exercice-ttl">Question 5</h2>
+            <p class="exercice-txt">Globaliser l'entête et le pied des pages de ce mini-site.</p>
+            <p class="exercice-txt">S'assurer de conserver les titres des pages et l'affichage dynamique du menu.</p>
+            <div class="exercice-sandbox">
+
+            </div>
+        </section>
+
+        <!-- QUESTION 6 -->
+        <section id="question5" class="exercice">
+            <h2 class="exercice-ttl">Question 6</h2>
+            <p class="exercice-txt">Créer un tableau listant les pages du site.</p>
+            <p class="exercice-txt">Créer une fonction générant le code HTML du menu du site.</p>
+            <div class="exercice-sandbox">
+
             </div>
         </section>
 
