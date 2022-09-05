@@ -1,3 +1,7 @@
+<?php
+require "_functions.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,13 +53,16 @@
             <p class="exercice-txt">Récupérer dans un tableau puis affichez l'ensemble des plateformes de diffusion des séries. Afficher les par ordre alphabétique.</p>
             <div class="exercice-sandbox">
                 <?php
-                // var_dump($series);
-                $plateform = [];
+                $platforms = [];
                 foreach ($series as $serie) {
-                    if (!in_array($serie["availableOn"], $plateform)) array_push($plateform, $serie["availableOn"]);
+                    // if (!in_array($serie["availableOn"], $platforms)) $platforms[] = $serie["availableOn"];
+                    $platforms[] = $serie["availableOn"];
                 }
-                sort($plateform);
-                var_dump($plateform);
+                // $platforms = array_map(fn ($s) => $s["availableOn"], $series);
+                // $platforms = array_unique(array_map(fn ($s) => $s["availableOn"], $series));
+                $platforms = array_unique($platforms);
+                sort($platforms);
+                echo getHtmlFromArray1($platforms);
                 ?>
             </div>
         </section>
@@ -69,13 +76,28 @@
                 <?php
                 // var_dump($series);
                 $styles = [];
-                foreach ($series as $serie) {
-                    foreach ($serie["styles"] as $style) {
-                        if (!in_array($style, $styles)) array_push($styles, $style);
-                    }
-                }
+                // foreach ($series as $serie) {
+                //     foreach ($serie["styles"] as $style) {
+                //         // if (!in_array($style, $styles)) $styles[] = $style;
+                //         $styles[] = $style;
+                //     }
+                // }
+
+                //------------------------------
+                // foreach ($series as $serie) {
+                //     $styles = array_merge($serie["styles"], $styles);
+                // }
+
+
+                // --------------------------------
+                // $styles = array_map(fn ($s) => $s["styles"], $series);
+                // $styles = array_merge(...$styles);
+                // $styles = array_unique($styles);
+
+                $styles = array_unique(array_merge(...array_map(fn ($s) => $s["styles"], $series)));
                 sort($styles);
-                var_dump($styles);
+                // var_dump($styles);
+                echo getHtmlFromArray1($styles);
                 ?>
             </div>
         </section>
@@ -89,28 +111,53 @@
             <div class="exercice-sandbox">
                 <ul class="list-principal">
                     <?php
-                    function display(array $array): string
+                    // foreach ($series as $serie) {
+                    //     $actors = getListFromArray($serie["actors"]);
+                    //     $creators = getListFromArray($serie["createdBy"]);
+                    //     echo "<li class =\"list\">
+                    //     <a href= \"exo5.php?serie=" . $serie['id'] . "\" class = \"title\">" . $serie["name"] . "</a>
+                    //     <a href=\"exo5.php?serie=" . $serie['id'] . "\"><img class = \"img\" src = \"" . $serie['image'] . "\"></a>
+                    //     <ul class = \"created\"><span class =\"spanT\">Créé par : </span>$creators</ul>
+                    //     <ul class =\"casting\"><span class =\"spanT\">Casting: </span>$actors</ul></li>";
+                    // }
+
+                    // ----------------------------------------------
+                    function urlToSrc(string $url): string
                     {
-                        $list = "";
-                        foreach ($array as $key) {
-                            if (!is_null($key)) $list .= "<li class=" . "list-s" . ">$key</li>";
-                        }
-                        return $list;
+                        return "<img class = \"img\" src = \"$url\">";
                     }
-                    // var_dump($series);
-                    // var_dump($series[0]);
-                    // var_dump($series[0]["image"], $series[0]["name"], $series[0]["createdBy"][0], $series[0]["createdBy"][1], $series[0]["actors"][0], $series[0]["actors"][1], $series[0]["actors"][2]);
-                    // echo "<li class = " . "list" . "><h3 class = " . "title" . ">" . $series[0]["name"] . "</h3><img class = " . "img" . " src =" . $series[0]["image"] . "><p class = " . "created" . ">Créé par : " . $series[0]["createdBy"][0] . ", " . $series[0]["createdBy"][1] . "</p><p class = " . "casting" . ">Casting : " . $series[0]["actors"][0] . ", " . $series[0]["actors"][1] . ", " . $series[0]["actors"][2] . "</p></li>";
-                    // echo "<li class = " . "list" . "><h3 class = " . "title" . ">" . $series[0]["name"] . "</h3><img class = " . "img" . " src =" . $series[0]["image"] . "><ul class = " . "created" . "><span class = " . "spanT" . ">Créé par : </span> <li> " . $series[0]["createdBy"][0] . "</li><li> " . $series[0]["createdBy"][1] . "</li></ul><ul class = " . "casting" . "><span class = " . "spanT" . ">Casting : </span> <li>" . $series[0]["actors"][0] . "</li><li> " . $series[0]["actors"][1] . "</li><li>" . $series[0]["actors"][2] . "</li></ul></li>";
+                    function getLink(string $string, int $id, string $classCSS = NULL): string
+                    {
+                        $link = "";
+                        if ($classCSS) {
+                            $link = "<a href=\"$string $id\" class = \"$classCSS\">";
+                        } else {
+                            $link = "<a href=\"$string $id\">";
+                        }
+                        return $link;
+                    }
+                    // function addToUrlImage(string $string, int $id): string
+                    // {
+                    //     return "<a href=\"$string $id\">";
+                    // }
+                    function addSpanOnHtml(): string
+                    {
+                        return "<span class =\"spanT\">";
+                    }
+
                     foreach ($series as $serie) {
-                        $actors = display($serie["actors"]);
-                        $creators = display($serie["createdBy"]);
-                        // echo "<li class =" . "list" . "><h3 class = " . "title" . ">" . $serie["name"] . "</h3><img class = " . "img" . " src =" . $serie["image"] . "><ul class = " . "created" . "><span class = " . "spanT" . ">Créé par : </span>$creators</ul><ul class = " . "casting" . "><span class = " . "spanT" . ">Casting: </span>$actors</ul></li>";
+                        $actors = getListFromArray($serie["actors"]);
+                        $creators = getListFromArray($serie["createdBy"]);
+                        $image = urlToSrc($serie["image"]);
+                        $urlTitle = getLink("exo5.php?serie=", $serie["id"], "title");
+                        $urlImage = getLink("exo5.php?serie=", $serie["id"]);
+                        $span = addSpanOnHtml();
+
                         echo "<li class =\"list\">
-                        <a href= \"exo5.php?serie=" . $serie['id'] . "\" class = \"title\">" . $serie["name"] . "</a>
-                        <a href=\"exo5.php?serie=" . $serie['id'] . "\"><img class = \"img\" src = \"" . $serie['image'] . "\"></a>
-                        <ul class = \"created\"><span class =\"spanT\">Créé par : </span>$creators</ul>
-                        <ul class =\"casting\"><span class =\"spanT\">Casting: </span>$actors</ul></li>";
+                        $urlTitle" . $serie["name"] . "</a>
+                        $urlImage $image</a>
+                        <ul class = \"created\">$span Créé par : </span>$creators</ul>
+                        <ul class =\"casting\">$span Casting: </span>$actors</ul></li>";
                     }
                     ?>
                 </ul>
