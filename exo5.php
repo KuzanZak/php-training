@@ -10,7 +10,7 @@ require "_functions.php";
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css?<?= time() ?>">
     <title>Introduction PHP - Exo 5</title>
 </head>
 
@@ -128,36 +128,38 @@ require "_functions.php";
                     }
                     function getLink(string $string, int $id, string $classCSS = NULL): string
                     {
-                        $link = "";
-                        if ($classCSS) {
-                            $link = "<a href=\"$string $id\" class = \"$classCSS\">";
-                        } else {
-                            $link = "<a href=\"$string $id\">";
-                        }
-                        return $link;
-                    }
-                    // function addToUrlImage(string $string, int $id): string
-                    // {
-                    //     return "<a href=\"$string $id\">";
-                    // }
-                    function addSpanOnHtml(): string
+                        if ($classCSS) return "<a href=\"$string $id\" class = \"$classCSS\">";
+                        return "<a href=\"$string $id\">";
+                    } 
+                    function addSpanOnHtml(string $classCSS): string
                     {
-                        return "<span class =\"spanT\">";
+                        return "<span class =\"$classCSS\">";
+                    }
+                    function getList(string $classCSS): string
+                    {
+                        return "<ul class = \"$classCSS\">";
                     }
 
                     foreach ($series as $serie) {
-                        $actors = getListFromArray($serie["actors"]);
-                        $creators = getListFromArray($serie["createdBy"]);
-                        $image = urlToSrc($serie["image"]);
-                        $urlTitle = getLink("exo5.php?serie=", $serie["id"], "title");
-                        $urlImage = getLink("exo5.php?serie=", $serie["id"]);
-                        $span = addSpanOnHtml();
+                        // $actors = getListFromArray($serie["actors"]);
+                        // $creators = getListFromArray($serie["createdBy"]);
+                        // $image = urlToSrc($serie["image"]);
+                        // $urlTitle = getLink("exo5.php?serie=", $serie["id"], "title");
+                        // $urlImage = getLink("exo5.php?serie=", $serie["id"]);
+                        // $span = addSpanOnHtml();
+                        // $listCreated = getList("created");
+                        // $listActors = getList("casting");
+                        // echo "<li class =\"list\">
+                        // $urlTitle" . $serie["name"] . "</a>
+                        // $urlImage $image</a>
+                        // $listCreated $span Créé par : </span>$creators</ul>
+                        // $listActors $span Casting: </span>$actors</ul></li>";
 
                         echo "<li class =\"list\">
-                        $urlTitle" . $serie["name"] . "</a>
-                        $urlImage $image</a>
-                        <ul class = \"created\">$span Créé par : </span>$creators</ul>
-                        <ul class =\"casting\">$span Casting: </span>$actors</ul></li>";
+                        " . getLink("exo5.php?serie=", $serie["id"], "title") . "" . $serie["name"] . "</a>
+                        " . getLink("exo5.php?serie=", $serie["id"]) . " " . urlToSrc($serie["image"]) . "</a>
+                        " . getList("created") . "" . addSpanOnHtml("spanT") . " Créé par : </span>" . getListFromArray($serie["createdBy"]) . "</ul>
+                        " . getList("casting") . "" . addSpanOnHtml("spanT") . " Casting: </span>" . getListFromArray($serie["actors"]) . "</ul></li>";
                     }
                     ?>
                 </ul>
@@ -171,27 +173,40 @@ require "_functions.php";
             <p class="exercice-txt">Si l'URL de la page appelée comporte l'identifiant d'une série, alors afficher toutes les informations de la série.</p>
             <p class="exercice-txt">Si l'identifiant ne correspond à aucune série, afficher un message d'erreur.</p>
             <div class="exercice-sandbox">
-                <?php
-                foreach ($series as $serie) {
-                    if ($_GET["serie"] == $serie["id"]) {
-                        $actors = implode(", ", $serie["actors"]);
-                        $creators = implode(", ", $serie["createdBy"]);
+                <ul>
+                    <?php
+                    function getParagraph(string $title,  string $data = NULL, int $dateS = NULL)
+                    {
+                        $string = "";
+                        if ($data) {
+                            $string = "<p> $title : $data </p>";
+                        } else if ($dateS) {
+                            $string = "<p> $title : $dateS </p>";
+                        }
+                        return $string;
+                    }
+                    foreach ($series as $serie) {
+                        if ($_GET["serie"] == $serie["id"]) {
+                            $actors = implode(", ", $serie["actors"]);
+                            $creators = implode(", ", $serie["createdBy"]);
 
-                        echo "<p>Id : " . $serie["id"] . "</p>
-                        <p>Name : " . $serie["name"] . "</p>
-                        <p>Year : " . $serie["launchYear"] . "</p>
-                        <p>Country : " . $serie["country"] . "</p>
-                        <p>Available on : " . $serie["availableOn"] . "</p>
-                        <p>Duration of episode : " . $serie["episodeDurationInMinutes"] . "</p>
-                        <p>Number of seasons : " . $serie["numberOfSeasons"] . "</p>
-                        <p>Number of episods : " . $serie["numberOfEpisods"] . "</p>
-                        <p>Ongoing : " . $serie["ongoing"] . "</p>
-                        <p>URL image : " . $serie["image"] . "</p>
+                            echo "<li class=\" list\">
+                        " . getParagraph("Id", $serie["id"]) . "
+                        " . getParagraph("Name", $serie["name"]) . "
+                        " . getParagraph("Year", $serie["launchYear"]) . "
+                        " . getParagraph("Country", $serie["country"]) . "
+                        " . getParagraph("Available on", $serie["availableOn"]) . "
+                        " . getParagraph("Duration of episode", $serie["episodeDurationInMinutes"]) . "
+                        " . getParagraph("Number of seasons ", $serie["numberOfSeasons"]) . "
+                        " . getParagraph("Number of episods ", $serie["numberOfEpisods"]) . "
+                        " . getParagraph("Ongoing ", $serie["ongoing"]) . "
+                        " . getParagraph("URL image ", $serie["image"]) . "
                         <ul><span>Créé par : </span>$creators</ul>
                         <ul><span>Casting: </span>$actors</ul></li>";
-                    };
-                }
-                ?>
+                        };
+                    }
+                    ?>
+                </ul>
             </div>
         </section>
 

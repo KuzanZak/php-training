@@ -16,6 +16,7 @@
 
 .img{
     width: 75%;
+    max-width: 310px;
     border-radius: 15%;
     margin: auto .5rem;
 }
@@ -34,10 +35,10 @@
 }
 
 
-@media screen and (min-width : 550px ) and (max-width : 900px){
+@media screen and (min-width : 550px ){
     .list-principal{
         display: grid;
-        grid-template-columns: 50% 50%;
+        grid-template-columns: repeat(2, 1fr);
         list-style: none;
     }
     .list{
@@ -47,15 +48,15 @@
         margin-bottom: .5rem;
     }
     .list-s{
+        display: inline;
         list-style: none;
         margin-bottom: .1rem;
     }
-    .list-s ::after {
+    .list-s:not(:last-child)::after {
         content: ", ";
     }
     .img{
         width: 60%;
-        border-radius: 15%;
         display: block;
         margin-left: auto;
         margin-right: auto;
@@ -70,8 +71,7 @@
 
 @media screen and ( min-width : 901px ) {
     .list-principal{
-        display: grid;
-        grid-template-columns: 25% 25% 25% 25%;
+        grid-template-columns: repeat(4, 1fr);
         list-style: none;
     }
     .list{
@@ -82,15 +82,14 @@
         font-size: 1.3rem;
     }
     .list-s{
-        list-style: none;
+        display: inline;
         margin-bottom: .1rem;
     }
-    .list-s ::after {
+    .list-s:not(:last-child)::after {
         content: ", ";
     }
     .img{
         width: 60%;
-        border-radius: 15%;
         display: block;
         margin-left: auto;
         margin-right: auto;
